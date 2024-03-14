@@ -1,0 +1,39 @@
+#
+# Builds and runs all docker containers to start a new VM
+# @file docker-compose.yml
+
+version: '3.3'
+services:
+  php:
+    build: './system/docker/php'
+    container_name: php
+    depends_on:
+      - mariadb
+    networks:
+      - backend
+    environment:
+      MYSQL_USER: hmc
+      MYSQL_PASSWORD: nhIniHsb8gTHyj1
+      MYSQL_HOST: mariadb
+    restart: on-failure
+    volumes:
+      - ./src/:/var/www/html
+    entrypoint: [ "php","main.php" ]
+  mariadb:
+    build: './system/docker/mariadb'
+    container_name: mariadb
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: todaoG5Zepj68krLgL16dXVkZSyP9De6W36iRk2Eaqfxpi44ZoO7K13vuPK5Gnkm
+      MYSQL_ALLOW_EMPTY_PASSWORD: 0
+      MYSQL_RANDOM_ROOT_PASSWORD: 0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./storage/database/:/var/lib/mysql/
+networks:
+  backend:
+  frontend:

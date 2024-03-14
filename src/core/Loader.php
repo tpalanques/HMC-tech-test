@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace core;
+
 class  Loader {
     protected static array $dirs = [];
     protected static int $registered = 0;
@@ -54,6 +56,5 @@ class  Loader {
             spl_autoload_register(__CLASS__ . '::autoload');
             self::$registered++;
         }
-
     }
 }
