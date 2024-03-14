@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/vendor/Loader.php';
+require __DIR__ . '/core/Loader.php';
 Loader::init([0 => getcwd()]);
 
 
