@@ -41,4 +41,3 @@ services:
       - ./storage/database/:/var/lib/mysql/
 networks:
   backend:
-  frontend:
