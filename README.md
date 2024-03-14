@@ -1,3 +1,8 @@
+# Execute
+Just change directory to the `system/scripts` folder, then execute:
+```sh
+. docker.sh restart
+```
 # Product Backlog
 
 Current backlog is tracked in: https://github.com/tpalanques/HMC-tech-test/issues 
