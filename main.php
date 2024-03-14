@@ -1,5 +1,9 @@
 <?php
 
+require __DIR__ . '/vendor/Loader.php';
+Loader::init([0 => getcwd()]);
+
+
 class main {
 
     static public function start(): void {
