@@ -18,7 +18,12 @@ services:
     restart: on-failure
     volumes:
       - ./src/:/var/www/html
-    entrypoint: [ "php","main.php" ]
+    command: [ "php","main.php" ]
+  composer:
+    image: composer:latest
+    command: [ "composer", "install" ]
+    volumes:
+      - ./src:/app
   mariadb:
     build: './system/docker/mariadb'
     container_name: mariadb
