@@ -9,7 +9,7 @@ Loader::init([0 => getcwd()]);
 class main {
 
     static public function start(): void {
-        echo PHP_EOL."Starting new docked application".PHP_EOL.PHP_EOL;
+        echo PHP_EOL."Starting new PHP(".phpversion().") docked application".PHP_EOL.PHP_EOL;
     }
 }
 
