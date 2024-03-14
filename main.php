@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 require __DIR__ . '/core/Loader.php';
 Loader::init([0 => getcwd()]);
