@@ -1,15 +1,10 @@
 <?php declare(strict_types=1);
-
-use core\Loader;
-
-require __DIR__ . '/core/Loader.php';
-Loader::init([0 => getcwd()]);
-
+require __DIR__ . '/vendor/autoload.php';
 
 class main {
 
     static public function start(): void {
-        echo PHP_EOL."Starting new PHP(".phpversion().") docked application".PHP_EOL.PHP_EOL;
+        echo PHP_EOL . "Starting new PHP(" . phpversion() . ") docked application" . PHP_EOL . PHP_EOL;
     }
 }
 
