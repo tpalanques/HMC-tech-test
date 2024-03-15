@@ -4,6 +4,7 @@ namespace HMC\player\internal;
 
 use HMC\player\PLUG\Player;
 
+// FIXME rename to default? Or maybe move to model?
 class DefaultPlayer implements Player {
     const string TYPE_NAME = 'default';
 
