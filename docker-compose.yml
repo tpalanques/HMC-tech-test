@@ -15,11 +15,13 @@ services:
       MYSQL_USER: hmc
       MYSQL_PASSWORD: nhIniHsb8gTHyj1
       MYSQL_HOST: mariadb
-    restart: on-failure
+    restart: always
     volumes:
       - ./src/:/var/www/html
-    command: [ "php","main.php" ]
+#    command: [ "php","main.php" ]
+    command: [ "php","vendor/bin/phpunit","test" ]
   composer:
+    container_name: vendor
     image: composer:latest
     command: [ "composer", "install" ]
     volumes:
