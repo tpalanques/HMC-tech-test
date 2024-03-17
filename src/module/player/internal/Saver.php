@@ -3,21 +3,25 @@
 namespace HMC\player\internal;
 
 use HMC\player\PLUG\Player;
+use HMC\hand\PLUG\HandService;
 
 class Saver {
     const string TABLE_NAME = 'player';
     private array $database;
-    
-    public function __construct(array $database = null) {
+    private HandService $handService;
+
+    public function __construct(array $database = null, HandService $handService = null) {
         $this->database = $database ? $database : [];
+        $this->handService = $handService ? $handService : new HandService();
     }
 
     public function get(int $id): Player {
         $info = $this->database[self::TABLE_NAME][$id];
-        switch ($info['type']) {
-            case DefaultPlayer::TYPE_NAME:
-                return new DefaultPlayer($info['id'], $info['name']);
-        }
+        return new DefaultPlayer(
+            $info['id'],
+            $info['name'],
+            $this->handService->getById($info['handTypeId'])
+        );
     }
 
     public function save(Player $player): void {
@@ -29,6 +33,7 @@ class Saver {
             'id' => $player->getId(),
             'name' => $player->getName(),
             'type' => $player->getType(),
+            'handTypeId' => $player->getHand()->getTypeId()
         ];
     }
 }

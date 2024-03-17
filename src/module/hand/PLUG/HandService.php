@@ -4,10 +4,9 @@ namespace HMC\hand\PLUG;
 
 use HMC\hand\internal\Dumb;
 use HMC\hand\internal\Standard;
-use HMC\player\internal\Saver;
+use Exception;
 
 class HandService {
-    private Saver $playerSaver;
 
     public function createStandard(): Hand {
         return new Standard();
@@ -15,5 +14,19 @@ class HandService {
 
     public function createDumb(): Hand {
         return new Dumb();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getById(int $id): Hand {
+        switch ($id) {
+            case Standard::TYPE_ID:
+                return $this->createStandard();
+            case Dumb::TYPE_ID:
+                return $this->createDumb();
+            default:
+                throw new Exception();
+        }
     }
 }
