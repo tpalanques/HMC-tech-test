@@ -5,17 +5,13 @@ namespace HMC\hand\internal;
 use HMC\hand\PLUG\Hand;
 use HMC\trick\PLUG\TrickService;
 
-class Dumb implements Hand {
+class Dumb extends Base {
 
-    private array $hand;
-    private TrickService $trickService;
+    const string TYPE_NAME = 'dumb';
+    const int TYPE_ID = 2;
 
     public function __construct() {
-        $this->trickService = new TrickService();
-        $this->hand[] = $this->trickService->getRock();
-    }
-
-    public function getTricks(): array {
-        return $this->hand;
+        parent::__construct(self::TYPE_ID, self::TYPE_NAME);
+        $this->addTrick($this->getTrickService()->getRock());
     }
 }
