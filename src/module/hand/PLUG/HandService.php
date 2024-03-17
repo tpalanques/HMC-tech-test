@@ -26,6 +26,7 @@ class HandService {
             case Dumb::TYPE_ID:
                 return $this->createDumb();
             default:
+                // FIXME - add custom exception
                 throw new Exception();
         }
     }
