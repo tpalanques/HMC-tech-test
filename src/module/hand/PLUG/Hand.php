@@ -8,4 +8,5 @@ interface Hand {
     public function getTypeId(): int;
     public function getTypeName(): string;
     public function getTricks(): array;
+    public function throw(): Trick;
 }
