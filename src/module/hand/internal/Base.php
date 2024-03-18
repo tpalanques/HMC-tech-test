@@ -32,6 +32,10 @@ abstract class Base implements Hand {
         return $this->hand;
     }
 
+    public function throw(): Trick {
+        return $this->hand[array_rand($this->getTricks())];
+    }
+
     protected function getTrickService(): TrickService {
         return $this->trickService;
     }
