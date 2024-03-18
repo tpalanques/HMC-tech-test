@@ -19,4 +19,8 @@ class TrickService {
     public function getScissors(): Trick {
         return new Scissors();
     }
+
+    public function beats(Trick $trick1, Trick $trick2): bool {
+        return $trick1->beats($trick2);
+    }
 }
