@@ -33,7 +33,7 @@ abstract class Base implements Hand {
     }
 
     public function throw(): Trick {
-        return $this->hand[array_rand($this->getTricks())];
+        return $this->getTricks()[array_rand($this->getTricks())];
     }
 
     protected function getTrickService(): TrickService {
