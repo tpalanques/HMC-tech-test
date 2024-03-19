@@ -18,8 +18,8 @@ services:
     restart: always
     volumes:
       - ./src/:/var/www/html
-#    command: [ "php","main.php" ]
-    command: [ "php","vendor/bin/phpunit","test" ]
+    command: [ "php","main.php" ]
+#    command: [ "php","vendor/bin/phpunit","test" ]
   composer:
     container_name: vendor
     image: composer:latest
