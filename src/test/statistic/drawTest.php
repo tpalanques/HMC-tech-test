@@ -7,19 +7,21 @@ use PHPUnit\Framework\TestCase;
 
 class drawTest extends TestCase {
 
-    private Draw $draw;
+    const int INITIAL_DRAWS = 4;
+    private Draw $sut;
+
+    protected function setUp(): void {
+        parent::setUp();
+        $this->sut = new Draw($this->getDrawDatabaseMock(self::INITIAL_DRAWS));
+    }
 
     public function testGet() {
-        $draws = 4;
-        $sut = new Draw($this->getDrawDatabaseMock($draws));
-        $this->assertEquals($draws, $sut->get());
+        $this->assertEquals(self::INITIAL_DRAWS, $this->sut->get());
     }
 
     public function testSave() {
-        $initialDraws = 7;
-        $sut = new Draw($this->getDrawDatabaseMock($initialDraws));
-        $sut->add();
-        $this->assertEquals($initialDraws + 1, $sut->get());
+        $this->sut->add();
+        $this->assertEquals(self::INITIAL_DRAWS + 1, $this->sut->get());
     }
 
     private function getDrawDatabaseMock(int $draws): array {
