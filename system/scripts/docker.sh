@@ -9,7 +9,7 @@ setEnvironment
 function start(){
     cd $ROOT_PATH
     sudo docker-compose up --detach --force-recreate --remove-orphans --always-recreate-deps --build
-    sudo docker-compose logs -f php
+    sudo docker-compose logs php
     cdOriginalPath
 }
 
