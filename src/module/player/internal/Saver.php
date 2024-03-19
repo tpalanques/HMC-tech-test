@@ -11,8 +11,8 @@ class Saver {
     private HandService $handService;
 
     public function __construct(array $database = null, HandService $handService = null) {
-        $this->database = $database ? $database : [];
-        $this->handService = $handService ? $handService : new HandService();
+        $this->database = $database ?: [];
+        $this->handService = $handService ?: new HandService();
     }
 
     public function get(int $id): Player {
