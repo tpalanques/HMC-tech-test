@@ -28,10 +28,10 @@ class creationTest extends TestCase {
         parent::__construct($name);
         $this->gameService = new GameService();
         $this->handService = new HandService();
-        $this->trickService = new TrickService();
-        $this->paperPlayerService = new PlayerService($this->getHandServiceMock($this->trickService->getPaper()));
-        $this->rockPlayerService = new PlayerService($this->getHandServiceMock($this->trickService->getRock()));
-        $this->scissorsPlayerService = new PlayerService($this->getHandServiceMock($this->trickService->getScissors()));
+        $trickService = new TrickService();
+        $this->paperPlayerService = new PlayerService($this->getHandServiceMock($trickService->getPaper()));
+        $this->rockPlayerService = new PlayerService($this->getHandServiceMock($trickService->getRock()));
+        $this->scissorsPlayerService = new PlayerService($this->getHandServiceMock($trickService->getScissors()));
     }
 
     // DRAW GAMES
@@ -39,21 +39,21 @@ class creationTest extends TestCase {
         $local = $this->paperPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->paperPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertNull($sut->getResult());
+        $this->assertNull($sut->getWinner());
     }
 
     public function testRockDrawGame(): void {
         $local = $this->rockPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->rockPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertNull($sut->getResult());
+        $this->assertNull($sut->getWinner());
     }
 
     public function testScissorsDrawGame(): void {
         $local = $this->scissorsPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->scissorsPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertNull($sut->getResult());
+        $this->assertNull($sut->getWinner());
     }
 
     // PAPER GAMES
@@ -61,14 +61,14 @@ class creationTest extends TestCase {
         $local = $this->paperPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->rockPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertEquals($local, $sut->getResult());
+        $this->assertEquals($local, $sut->getWinner());
     }
 
     public function testPaperDoesNotWinScissors() {
         $local = $this->paperPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->scissorsPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertEquals($visitor, $sut->getResult());
+        $this->assertEquals($visitor, $sut->getWinner());
     }
 
     // ROCK GAMES
@@ -76,14 +76,14 @@ class creationTest extends TestCase {
         $local = $this->rockPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->paperPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertEquals($visitor, $sut->getResult());
+        $this->assertEquals($visitor, $sut->getWinner());
     }
 
     public function testRockWinsScissors() {
         $local = $this->rockPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->scissorsPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertEquals($local, $sut->getResult());
+        $this->assertEquals($local, $sut->getWinner());
     }
 
     // SCISSORS GAMES
@@ -91,23 +91,20 @@ class creationTest extends TestCase {
         $local = $this->scissorsPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->paperPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertEquals($local, $sut->getResult());
+        $this->assertEquals($local, $sut->getWinner());
     }
 
     public function testScissorsDoesNotWinRock() {
         $local = $this->scissorsPlayerService->createDumb(self::LOCAL_ID, self::LOCAL_NAME);
         $visitor = $this->rockPlayerService->createDumb(self::VISITOR_ID, self::VISITOR_NAME);
         $sut = $this->gameService->create($local, $visitor);
-        $this->assertEquals($visitor, $sut->getResult());
+        $this->assertEquals($visitor, $sut->getWinner());
     }
 
     private function getHandServiceMock(Trick $trick): HandService {
         $handService = $this->createMock(HandService::class);
-        $handService->method('createWithSingleTrick')->willReturn($this->buildHand($trick));
+        $handService->method('createWithSingleTrick')
+            ->willReturn($this->handService->createWithSingleTrick($trick));
         return $handService;
-    }
-
-    private function buildHand(Trick $trick,): Hand {
-        return $this->handService->createWithSingleTrick($trick);
     }
 }
