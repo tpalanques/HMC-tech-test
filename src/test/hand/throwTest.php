@@ -30,7 +30,7 @@ class throwTest extends TestCase {
     }
 
     public function testThrowDumbHand() {
-        $sut = $this->handService->createDumb();
+        $sut = $this->handService->createWithSingleTrick();
         $trick = $sut->throw();
         $this->assertEquals(
             Rock::TYPE_NAME,
@@ -49,8 +49,8 @@ class throwTest extends TestCase {
         for ($i = 1; $i <= $tries; $i++) {
             $statistics[$sut->throw()->getValue()]++;
         }
-        $this->assertFalse($statistics[Paper::TYPE_NAME] === 0,'Paper was never thrown in '.$tries.' tries');
-        $this->assertFalse($statistics[Rock::TYPE_NAME] === 0, 'Rock was never thrown in '.$tries.' tries');
-        $this->assertFalse($statistics[Scissors::TYPE_NAME] === 0, 'Scissors was never thrown in '.$tries.' tries');
+        $this->assertFalse($statistics[Paper::TYPE_NAME] === 0, 'Paper was never thrown in ' . $tries . ' tries');
+        $this->assertFalse($statistics[Rock::TYPE_NAME] === 0, 'Rock was never thrown in ' . $tries . ' tries');
+        $this->assertFalse($statistics[Scissors::TYPE_NAME] === 0, 'Scissors was never thrown in ' . $tries . ' tries');
     }
 }
