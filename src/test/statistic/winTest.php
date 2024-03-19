@@ -39,7 +39,7 @@ class winTest extends TestCase {
     }
 
     private function getWinDatabaseMock(): array {
-        $database[Win::TABLE_NAME][self::PLAYER_ID] = self::PLAYER_INITIAL_WINS;
+        $database[self::PLAYER_ID] = self::PLAYER_INITIAL_WINS;
         return $database;
     }
 }

@@ -16,11 +16,19 @@ class StatisticService {
         $this->win = new Win();
     }
 
+    public function getDraws(): int {
+        return $this->draw->get();
+    }
+
     public function getWinsByPlayer(Player $player): int {
         return $this->win->getByPlayer($player);
     }
 
-    public function getDraws(): int {
-        return $this->draw->get();
+    public function addDraw(): void {
+        $this->draw->add();
+    }
+
+    public function addWinToPlayer(Player $player): void {
+        $this->win->addToPlayer($player);
     }
 }

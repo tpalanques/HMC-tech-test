@@ -3,19 +3,18 @@
 namespace HMC\statistic\internal;
 
 class Draw {
-    const string TABLE_NAME = 'draw';
 
-    private array $database;
+    private int $database;
 
-    public function __construct(array $database = null) {
-        $this->database = $database ?: [];
+    public function __construct(int $database = null) {
+        $this->database = $database ?: 0;
     }
 
     public function get(): int {
-        return $this->database[self::TABLE_NAME];
+        return $this->database;
     }
 
     public function add(): void {
-        $this->database[self::TABLE_NAME]++;
+        $this->database++;
     }
 }

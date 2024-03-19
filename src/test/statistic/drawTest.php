@@ -12,7 +12,7 @@ class drawTest extends TestCase {
 
     protected function setUp(): void {
         parent::setUp();
-        $this->sut = new Draw($this->getDrawDatabaseMock(self::INITIAL_DRAWS));
+        $this->sut = new Draw(self::INITIAL_DRAWS);
     }
 
     public function testGet() {
@@ -22,9 +22,5 @@ class drawTest extends TestCase {
     public function testSave() {
         $this->sut->add();
         $this->assertEquals(self::INITIAL_DRAWS + 1, $this->sut->get());
-    }
-
-    private function getDrawDatabaseMock(int $draws): array {
-        return [Draw::TABLE_NAME => $draws];
     }
 }
